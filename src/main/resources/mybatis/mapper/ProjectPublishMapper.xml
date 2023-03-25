@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sakura.project_manage.mapper.generator.ProjectPublishGeneratorMapper">
+    <resultMap id="BaseResultMap" type="com.sakura.project_manage.entity.ProjectPublish">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="project_name" jdbcType="VARCHAR" property="projectName"/>
+        <result column="project_type" jdbcType="INTEGER" property="projectType"/>
+        <result column="publish_date" jdbcType="TIMESTAMP" property="publishDate"/>
+        <result column="project_desc" jdbcType="VARCHAR" property="projectDesc"/>
+        <result column="project_appendix" jdbcType="VARCHAR" property="projectAppendix"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                            separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    id, project_name, project_type, publish_date, project_desc, project_appendix, create_date
+  </sql>
+    <select id="countByExample" parameterType="com.sakura.project_manage.entity.example.ProjectPublishExample"
+            resultType="java.lang.Long">
+        select count(*) from project_publish
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <select id="search" parameterType="pd" resultType="pd">
+        SELECT
+        id,
+        project_name AS `projectName` ,
+        project_type as `projectType`,
+        DATE_FORMAT(publish_date,'%Y-%m-%d') as `publishDate`,
+        project_desc as `projectDesc`
+        FROM
+        project_publish
+        <where>
+            1=1
+            <if test="projectName != null and projectName != '' ">
+                and project_name like concat('%',#{projectName},'%')
+            </if>
+            <if test="projectType != null and projectType != '' ">
+                and project_type = #{projectType}
+            </if>
+            <if test="startDate != null and startDate != '' ">
+                and publish_date >= #{publish_date}
+            </if>
+            <if test="endDate != null and endDate != '' ">
+                and publish_date &lt;= #{publish_date}
+            </if>
+        </where>
+        ORDER BY id asc
+    </select>
+</mapper>

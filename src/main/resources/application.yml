@@ -1,0 +1,36 @@
+server:
+  port: 8090
+  name: project_manage
+  env: dev
+  servlet:
+    context-path: /project
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/project_manage?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    database: mysql
+  redis:
+    database: 1
+    host: localhost
+    password:
+    jedis:
+      pool:
+        max-idle: 30
+        max-active: 50
+    port: 6379
+  profiles:
+    active: dev
+pagehelper:
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+logging:
+  level:
+    com.sakura.project_manage.mapper: debug
+mybatis:
+  mapper-locations: classpath*:mybatis/mapper/*.xml
+  type-aliases-package: com.sakura.project_manage.entity
+  configLocation: classpath:/mybatis-config.xml

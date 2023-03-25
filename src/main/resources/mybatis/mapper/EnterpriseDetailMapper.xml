@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sakura.project_manage.mapper.generator.EnterpriseDetailGeneratorMapper">
+  <resultMap id="BaseResultMap" type="com.sakura.project_manage.entity.EnterpriseDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="enterprise_name" jdbcType="VARCHAR" property="enterpriseName" />
+    <result column="enterprise_corporate" jdbcType="VARCHAR" property="enterpriseCorporate" />
+    <result column="enterprise_properties" jdbcType="VARCHAR" property="enterpriseProperties" />
+    <result column="enterprise_director" jdbcType="VARCHAR" property="enterpriseDirector" />
+    <result column="enterprise_director_phone" jdbcType="VARCHAR" property="enterpriseDirectorPhone" />
+    <result column="enterprise_bank" jdbcType="VARCHAR" property="enterpriseBank" />
+    <result column="enterprise_bank_account" jdbcType="VARCHAR" property="enterpriseBankAccount" />
+    <result column="enterprise_shareholder" jdbcType="VARCHAR" property="enterpriseShareholder" />
+    <result column="scope_business" jdbcType="VARCHAR" property="scopeBusiness" />
+    <result column="taxpayer_no" jdbcType="VARCHAR" property="taxpayerNo" />
+    <result column="taxpayer_image" jdbcType="VARCHAR" property="taxpayerImage" />
+    <result column="enterprise_desc" jdbcType="VARCHAR" property="enterpriseDesc" />
+    <result column="logon_time" jdbcType="TIMESTAMP" property="logonTime" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, enterprise_name, enterprise_corporate, enterprise_properties, enterprise_director, 
+    enterprise_director_phone, enterprise_bank, enterprise_bank_account, enterprise_shareholder, 
+    scope_business, taxpayer_no, taxpayer_image, enterprise_desc, logon_time, create_date
+  </sql>
+  <select id="countByExample" parameterType="com.sakura.project_manage.entity.example.EnterpriseDetailExample" resultType="java.lang.Long">
+    select count(*) from enterprise_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+</mapper>

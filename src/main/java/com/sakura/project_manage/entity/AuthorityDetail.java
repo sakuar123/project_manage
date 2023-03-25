@@ -1,0 +1,129 @@
+package com.sakura.project_manage.entity;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/**
+ * Created by Mybatis Generator on 2023/03/11
+ * @author 李七夜
+ */
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@ApiModel(value = "权限表")
+@Table(name = "authority_detail")
+public class AuthorityDetail implements Serializable {
+
+    @Id
+    @ApiModelProperty(value = "主键id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @ApiModelProperty(value = "权限代码")
+    private String authorityCode;
+
+    @ApiModelProperty(value = "权限名称")
+    private String authorityName;
+
+    @ApiModelProperty(value = "父权限id")
+    private Integer parentId;
+
+    @ApiModelProperty(value = "创建时间")
+    private Date createDate;
+
+    private List<AuthorityDetail> authorityDetailList;
+
+    private static final long serialVersionUID = 1L;
+
+    public enum Column {
+        id("id", "id", "INTEGER", false),
+        authorityCode("authority_code", "authorityCode", "VARCHAR", false),
+        authorityName("authority_name", "authorityName", "VARCHAR", false),
+        parentId("parent_id", "parentId", "INTEGER", false),
+        createDate("create_date", "createDate", "TIMESTAMP", false);
+
+        private static final String BEGINNING_DELIMITER = "\"";
+
+        private static final String ENDING_DELIMITER = "\"";
+
+        private final String column;
+
+        private final boolean isColumnNameDelimited;
+
+        private final String javaProperty;
+
+        private final String jdbcType;
+
+        public String value() {
+            return this.column;
+        }
+
+        public String getValue() {
+            return this.column;
+        }
+
+        public String getJavaProperty() {
+            return this.javaProperty;
+        }
+
+        public String getJdbcType() {
+            return this.jdbcType;
+        }
+
+        Column(String column, String javaProperty, String jdbcType, boolean isColumnNameDelimited) {
+            this.column = column;
+            this.javaProperty = javaProperty;
+            this.jdbcType = jdbcType;
+            this.isColumnNameDelimited = isColumnNameDelimited;
+        }
+
+        public String desc() {
+            return this.getEscapedColumnName() + " DESC";
+        }
+
+        public String asc() {
+            return this.getEscapedColumnName() + " ASC";
+        }
+
+        public static Column[] excludes(Column... excludes) {
+            ArrayList<Column> columns = new ArrayList<>(Arrays.asList(Column.values()));
+            if (excludes != null && excludes.length > 0) {
+                columns.removeAll(new ArrayList<>(Arrays.asList(excludes)));
+            }
+            return columns.toArray(new Column[]{});
+        }
+
+        public static Column[] all() {
+            return Column.values();
+        }
+
+        public String getEscapedColumnName() {
+            if (this.isColumnNameDelimited) {
+                return new StringBuilder().append(BEGINNING_DELIMITER).append(this.column).append(ENDING_DELIMITER)
+                        .toString();
+            } else {
+                return this.column;
+            }
+        }
+
+        public String getAliasedEscapedColumnName() {
+            return this.getEscapedColumnName();
+        }
+    }
+}

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sakura.project_manage.mapper.generator.UserDetailGeneratorMapper">
+    <resultMap id="BaseResultMap" type="com.sakura.project_manage.entity.UserDetail">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="user_account" jdbcType="VARCHAR" property="userAccount"/>
+        <result column="user_password" jdbcType="VARCHAR" property="userPassword"/>
+        <result column="user_password_salt" jdbcType="VARCHAR" property="userPasswordSalt"/>
+        <result column="gender" jdbcType="INTEGER" property="gender"/>
+        <result column="user_company" jdbcType="INTEGER" property="userCompany"/>
+        <result column="user_role" jdbcType="INTEGER" property="userRole"/>
+        <result column="user_state" jdbcType="INTEGER" property="userState"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                            separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    id, user_name, user_account, user_password, user_password_salt, gender, user_company, 
+    user_role, user_state, create_date
+  </sql>
+    <select id="countByExample" parameterType="com.sakura.project_manage.entity.example.UserDetailExample"
+            resultType="java.lang.Long">
+        select count(*) from user_detail
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <select id="search" parameterType="pd" resultType="pd">
+        SELECT
+        u.id AS `userId`,
+        u.user_name AS `userName`,
+        u.user_account AS `userAccount`,
+        IF
+        ( u.gender = 1, '男', '女' ) AS `gender`,
+        u.user_state AS `userState`,
+        r.role_name AS `roleName`,
+        c.company_name AS `companyName`
+        FROM
+        user_detail u
+        JOIN role_detail r ON u.user_role = r.id
+        JOIN company_detail c ON u.user_company = c.id
+        <where>
+            1 = 1
+            <if test="companyId != null and companyId !='' and companyId >0 ">
+                and c.id = #{companyId}
+            </if>
+            <if test="roleId != null and roleId !='' and roleId >0 ">
+                and r.id = #{roleId}
+            </if>
+            <if test="userState != null and userState !=''">
+                and u.user_state = #{userState}
+            </if>
+            <if test="userName != null and userName != '' ">
+                and u.user_name like concat('%',#{userName},'%')
+            </if>
+        </where>
+        ORDER BY
+        u.id ASC
+    </select>
+</mapper>
