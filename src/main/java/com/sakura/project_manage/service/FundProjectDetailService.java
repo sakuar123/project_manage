@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import com.sakura.project_manage.common.utils.PageData;
 import com.sakura.project_manage.common.utils.PageResult;
 import com.sakura.project_manage.entity.FundProjectDetail;
+import com.sakura.project_manage.web.vo.FundProjectDetailVo;
 
 /**
  * @author 李七夜
@@ -16,9 +17,9 @@ public interface FundProjectDetailService {
 
     PageResult<PageData> search(PageData pageData, Pageable pageable);
 
-    Boolean add(FundProjectDetail fundProjectDetail);
+    Boolean add(FundProjectDetailVo fundProjectDetailVo);
 
-    Boolean edit(FundProjectDetail fundProjectDetail);
+    Boolean edit(FundProjectDetailVo fundProjectDetailVo);
 
     Boolean del(Integer id);
 

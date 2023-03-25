@@ -1,73 +1,140 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sakura.project_manage.mapper.generator.FundProjectGeneratorMapper">
-  <resultMap id="BaseResultMap" type="com.sakura.project_manage.entity.FundProject">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="project_fund_status" jdbcType="INTEGER" property="projectFundStatus" />
-    <result column="project_publish_id" jdbcType="INTEGER" property="projectPublishId" />
-    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
-    <result column="report_time" jdbcType="TIMESTAMP" property="reportTime" />
-    <result column="project_body" jdbcType="VARCHAR" property="projectBody" />
-    <result column="project_build_properties" jdbcType="VARCHAR" property="projectBuildProperties" />
-    <result column="project_build_content" jdbcType="VARCHAR" property="projectBuildContent" />
-    <result column="project_build_address" jdbcType="VARCHAR" property="projectBuildAddress" />
-    <result column="project_start_date" jdbcType="TIMESTAMP" property="projectStartDate" />
-    <result column="project_end_date" jdbcType="TIMESTAMP" property="projectEndDate" />
-    <result column="create_user" jdbcType="INTEGER" property="createUser" />
-    <result column="department_id" jdbcType="INTEGER" property="departmentId" />
-    <result column="section_id" jdbcType="INTEGER" property="sectionId" />
-    <result column="sustain_id" jdbcType="INTEGER" property="sustainId" />
-    <result column="project_level" jdbcType="INTEGER" property="projectLevel" />
-    <result column="project_approval" jdbcType="INTEGER" property="projectApproval" />
-    <result column="record_put" jdbcType="VARCHAR" property="recordPut" />
-    <result column="project_eia" jdbcType="VARCHAR" property="projectEia" />
-    <result column="project_gmp" jdbcType="VARCHAR" property="projectGmp" />
-    <result column="project_land" jdbcType="VARCHAR" property="projectLand" />
-    <result column="project_plan" jdbcType="VARCHAR" property="projectPlan" />
-    <result column="project_other" jdbcType="VARCHAR" property="projectOther" />
-    <result column="project_appendix" jdbcType="VARCHAR" property="projectAppendix" />
-    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
-  </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+    <resultMap id="BaseResultMap" type="com.sakura.project_manage.entity.FundProject">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="project_fund_status" jdbcType="INTEGER" property="projectFundStatus"/>
+        <result column="project_publish_id" jdbcType="INTEGER" property="projectPublishId"/>
+        <result column="project_name" jdbcType="VARCHAR" property="projectName"/>
+        <result column="report_time" jdbcType="TIMESTAMP" property="reportTime"/>
+        <result column="project_body" jdbcType="VARCHAR" property="projectBody"/>
+        <result column="project_build_properties" jdbcType="VARCHAR" property="projectBuildProperties"/>
+        <result column="project_build_content" jdbcType="VARCHAR" property="projectBuildContent"/>
+        <result column="project_build_address" jdbcType="VARCHAR" property="projectBuildAddress"/>
+        <result column="project_start_date" jdbcType="TIMESTAMP" property="projectStartDate"/>
+        <result column="project_end_date" jdbcType="TIMESTAMP" property="projectEndDate"/>
+        <result column="create_user" jdbcType="INTEGER" property="createUser"/>
+        <result column="department_id" jdbcType="INTEGER" property="departmentId"/>
+        <result column="section_id" jdbcType="INTEGER" property="sectionId"/>
+        <result column="sustain_id" jdbcType="INTEGER" property="sustainId"/>
+        <result column="project_level" jdbcType="INTEGER" property="projectLevel"/>
+        <result column="project_approval" jdbcType="INTEGER" property="projectApproval"/>
+        <result column="record_put" jdbcType="VARCHAR" property="recordPut"/>
+        <result column="project_eia" jdbcType="VARCHAR" property="projectEia"/>
+        <result column="project_gmp" jdbcType="VARCHAR" property="projectGmp"/>
+        <result column="project_land" jdbcType="VARCHAR" property="projectLand"/>
+        <result column="project_plan" jdbcType="VARCHAR" property="projectPlan"/>
+        <result column="project_other" jdbcType="VARCHAR" property="projectOther"/>
+        <result column="project_appendix" jdbcType="VARCHAR" property="projectAppendix"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                            separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
     id, project_fund_status, project_publish_id, project_name, report_time, project_body, 
     project_build_properties, project_build_content, project_build_address, project_start_date, 
     project_end_date, create_user, department_id, section_id, sustain_id, project_level, 
     project_approval, record_put, project_eia, project_gmp, project_land, project_plan, 
     project_other, project_appendix, create_date
   </sql>
-  <select id="countByExample" parameterType="com.sakura.project_manage.entity.example.FundProjectExample" resultType="java.lang.Long">
-    select count(*) from fund_project
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
+    <select id="countByExample" parameterType="com.sakura.project_manage.entity.example.FundProjectExample"
+            resultType="java.lang.Long">
+        select count(*) from fund_project
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <select id="get" resultType="pd" parameterType="java.lang.Integer">
+        SELECT
+        f.id AS `id`,
+        f.project_name AS `projectName`,
+        f.project_build_properties AS `projectBuildProperties`,
+        f.project_build_content AS `projectBuildContent`,
+        f.project_body AS `projectBody`,
+        DATE_FORMAT(f.project_start_date,'%Y-%m-%d') as `projectStartDate`,
+        DATE_FORMAT(f.project_end_date,'%Y-%m-%d') as `projectEndDate`,
+        f.project_build_address AS `projectBuildAddress`,
+        ( SELECT d.department_name FROM department_detail d WHERE id = f.department_id ) AS `departmentName`,
+        ( SELECT s.section_name FROM section_detail s WHERE id = f.section_id ) AS `sectionName`,
+        ( SELECT s.sustain_name FROM sustain_detail s WHERE id = f.sustain_id ) AS `sustainName`,
+        f.project_level AS `projectLevel`,
+        f.project_eia AS `projectEia`,
+        f.project_land AS `projectLand`,
+        f.project_plan AS `projectPlan`,
+        f.project_other AS `projectOther`,
+        f.project_gmp AS `projectGmp`,
+        IF
+        ( f.project_approval = 1, '是', '否' ) AS `projectApproval`
+        FROM
+        fund_project f
+        <where>
+            f.id = #{id}
+        </where>
+
+    </select>
+    <select id="search" resultType="pd" parameterType="pd">
+        SELECT
+        f.id as `id`,
+        DATE_FORMAT(f.report_time,'%Y-%m-%d') as `reportTime`,
+        DATE_FORMAT(f.project_start_date,'%Y-%m-%d') as `projectStartDate`,
+        DATE_FORMAT(f.project_end_date,'%Y-%m-%d') as `projectEndDate`,
+        (SELECT concat(d.project_total_investment,'万元') FROM fund_project_detail d WHERE f.id = d.project_fund_id) as `projectTotalInvestment`,
+        f.project_name as `projectName`,
+        f.project_build_properties as `projectBuildProperties`,
+        de.department_name as `departmentName`,
+        s.section_name as `sectionName`,
+        f.project_level as `projectLevel`
+        FROM fund_project f
+        JOIN department_detail de
+        on de.id = f.department_id
+        JOIN section_detail s
+        ON s.id = f.section_id
+        <where>
+            1=1
+            <if test="projectName != null and projectName != '' ">
+                and f.project_name like concat("%",#{projectName},"%")
+            </if>
+            <if test="status != null and status != '' and status != 0 ">
+                and f.project_fund_status =#{status}
+            </if>
+            <if test="departmentId != null and departmentId != '' and departmentId != 0 ">
+                and de.id =#{departmentId}
+            </if>
+            <if test="sectionId != null and sectionId != '' and sectionId != 0 ">
+                and s.id =#{sectionId}
+            </if>
+            <if test="level != null and level != '' and level != 0 ">
+                and f.project_level =#{level}
+            </if>
+        </where>
+        ORDER BY f.id asc
+    </select>
 </mapper>

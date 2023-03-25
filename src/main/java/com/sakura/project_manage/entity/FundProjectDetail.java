@@ -1,56 +1,62 @@
 package com.sakura.project_manage.entity;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import javax.persistence.*;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
-* Created by Mybatis Generator on 2023/03/25
-* @author 李七夜 
-*/
+ * Created by Mybatis Generator on 2023/03/25
+ * @author 李七夜
+ */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel(value="资金类项目详细表")
+@ApiModel(value = "资金类项目详细表")
 @Table(name = "fund_project_detail")
 public class FundProjectDetail implements Serializable {
+
     @Id
-    @ApiModelProperty(value="主键id")
+    @ApiModelProperty(value = "主键id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ApiModelProperty(value="资金类项目id")
+    @ApiModelProperty(value = "资金类项目id")
     private Integer projectFundId;
 
-    @ApiModelProperty(value="拟申请资金额度")
+    @ApiModelProperty(value = "拟申请资金额度")
     private BigDecimal projectFundQuota;
 
-    @ApiModelProperty(value="项目总投资")
+    @ApiModelProperty(value = "项目总投资")
     private BigDecimal projectTotalInvestment;
 
-    @ApiModelProperty(value="中央预算内投资")
+    @ApiModelProperty(value = "中央预算内投资")
     private BigDecimal projectCenterInvestment;
 
-    @ApiModelProperty(value="地方预算内投资")
+    @ApiModelProperty(value = "地方预算内投资")
     private BigDecimal projectPartInvestment;
 
-    @ApiModelProperty(value="银行贷款")
+    @ApiModelProperty(value = "银行贷款")
     private BigDecimal bankCredit;
 
-    @ApiModelProperty(value="企业自筹")
+    @ApiModelProperty(value = "企业自筹")
     private BigDecimal enterpriseSelfFinance;
 
-    @ApiModelProperty(value="创建时间")
+    @ApiModelProperty(value = "创建时间")
     private Date createDate;
 
     private static final long serialVersionUID = 1L;
@@ -109,7 +115,7 @@ public class FundProjectDetail implements Serializable {
             return this.getEscapedColumnName() + " ASC";
         }
 
-        public static Column[] excludes(Column ... excludes) {
+        public static Column[] excludes(Column... excludes) {
             ArrayList<Column> columns = new ArrayList<>(Arrays.asList(Column.values()));
             if (excludes != null && excludes.length > 0) {
                 columns.removeAll(new ArrayList<>(Arrays.asList(excludes)));
@@ -123,7 +129,8 @@ public class FundProjectDetail implements Serializable {
 
         public String getEscapedColumnName() {
             if (this.isColumnNameDelimited) {
-                return new StringBuilder().append(BEGINNING_DELIMITER).append(this.column).append(ENDING_DELIMITER).toString();
+                return new StringBuilder().append(BEGINNING_DELIMITER).append(this.column).append(ENDING_DELIMITER)
+                        .toString();
             } else {
                 return this.column;
             }

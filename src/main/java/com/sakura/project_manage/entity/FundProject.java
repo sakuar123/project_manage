@@ -1,103 +1,109 @@
 package com.sakura.project_manage.entity;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import javax.persistence.*;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
-* Created by Mybatis Generator on 2023/03/25
-* @author 李七夜 
-*/
+ * Created by Mybatis Generator on 2023/03/25
+ * @author 李七夜
+ */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel(value="资金类项目表")
+@ApiModel(value = "资金类项目表")
 @Table(name = "fund_project")
 public class FundProject implements Serializable {
+
     @Id
-    @ApiModelProperty(value="主键id")
+    @ApiModelProperty(value = "主键id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ApiModelProperty(value="项目状态")
+    @ApiModelProperty(value = "项目状态")
     private Integer projectFundStatus;
 
-    @ApiModelProperty(value="所属项目公告")
+    @ApiModelProperty(value = "所属项目公告")
     private Integer projectPublishId;
 
-    @ApiModelProperty(value="项目名称")
+    @ApiModelProperty(value = "项目名称")
     private String projectName;
 
-    @ApiModelProperty(value="申报时间")
+    @ApiModelProperty(value = "申报时间")
     private Date reportTime;
 
-    @ApiModelProperty(value="项目主体")
+    @ApiModelProperty(value = "项目主体")
     private String projectBody;
 
-    @ApiModelProperty(value="项目建设性质")
+    @ApiModelProperty(value = "项目建设性质")
     private String projectBuildProperties;
 
-    @ApiModelProperty(value="项目建设主体")
+    @ApiModelProperty(value = "项目建设主体")
     private String projectBuildContent;
 
-    @ApiModelProperty(value="项目建设地点")
+    @ApiModelProperty(value = "项目建设地点")
     private String projectBuildAddress;
 
-    @ApiModelProperty(value="项目开工时间")
+    @ApiModelProperty(value = "项目开工时间")
     private Date projectStartDate;
 
-    @ApiModelProperty(value="项目竣工时间")
+    @ApiModelProperty(value = "项目竣工时间")
     private Date projectEndDate;
 
-    @ApiModelProperty(value="创建者")
+    @ApiModelProperty(value = "创建者")
     private Integer createUser;
 
-    @ApiModelProperty(value="项目主管部门")
+    @ApiModelProperty(value = "项目主管部门")
     private Integer departmentId;
 
-    @ApiModelProperty(value="主管科室")
+    @ApiModelProperty(value = "主管科室")
     private Integer sectionId;
 
-    @ApiModelProperty(value="支持方式")
+    @ApiModelProperty(value = "支持方式")
     private Integer sustainId;
 
-    @ApiModelProperty(value="项目级别")
+    @ApiModelProperty(value = "项目级别")
     private Integer projectLevel;
 
-    @ApiModelProperty(value="是否立项")
+    @ApiModelProperty(value = "是否立项")
     private Integer projectApproval;
 
-    @ApiModelProperty(value="备案")
+    @ApiModelProperty(value = "备案")
     private String recordPut;
 
-    @ApiModelProperty(value="环评")
+    @ApiModelProperty(value = "环评")
     private String projectEia;
 
-    @ApiModelProperty(value="能评")
+    @ApiModelProperty(value = "能评")
     private String projectGmp;
 
-    @ApiModelProperty(value="土地")
+    @ApiModelProperty(value = "土地")
     private String projectLand;
 
-    @ApiModelProperty(value="规划")
+    @ApiModelProperty(value = "规划")
     private String projectPlan;
 
-    @ApiModelProperty(value="其他")
+    @ApiModelProperty(value = "其他")
     private String projectOther;
 
-    @ApiModelProperty(value="附件")
+    @ApiModelProperty(value = "附件")
     private String projectAppendix;
 
-    @ApiModelProperty(value="创建时间")
+    @ApiModelProperty(value = "创建时间")
     private Date createDate;
 
     private static final long serialVersionUID = 1L;
@@ -172,7 +178,7 @@ public class FundProject implements Serializable {
             return this.getEscapedColumnName() + " ASC";
         }
 
-        public static Column[] excludes(Column ... excludes) {
+        public static Column[] excludes(Column... excludes) {
             ArrayList<Column> columns = new ArrayList<>(Arrays.asList(Column.values()));
             if (excludes != null && excludes.length > 0) {
                 columns.removeAll(new ArrayList<>(Arrays.asList(excludes)));
@@ -186,7 +192,8 @@ public class FundProject implements Serializable {
 
         public String getEscapedColumnName() {
             if (this.isColumnNameDelimited) {
-                return new StringBuilder().append(BEGINNING_DELIMITER).append(this.column).append(ENDING_DELIMITER).toString();
+                return new StringBuilder().append(BEGINNING_DELIMITER).append(this.column).append(ENDING_DELIMITER)
+                        .toString();
             } else {
                 return this.column;
             }

@@ -86,4 +86,16 @@
         ORDER BY
         u.id ASC
     </select>
+
+    <select id="getUserDetail" resultType="pd" parameterType="java.lang.Integer">
+        SELECT
+        user_name AS `userName`,
+        user_account AS `userAccount`,
+        ( SELECT c.company_name FROM company_detail c WHERE c.id = u.user_company ) AS `companyName`
+        FROM
+        user_detail u
+        <where>
+            u.id = #{id}
+        </where>
+    </select>
 </mapper>

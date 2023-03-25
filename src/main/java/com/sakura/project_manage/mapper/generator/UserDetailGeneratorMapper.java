@@ -15,4 +15,6 @@ public interface UserDetailGeneratorMapper extends BaseGeneratorMapper<UserDetai
     long countByExample(UserDetailExample example);
 
     List<PageData> search(PageData pageData);
+
+    PageData getUserDetail(Integer id);
 }
