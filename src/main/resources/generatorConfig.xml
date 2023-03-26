@@ -107,17 +107,17 @@
         </javaClientGenerator>
 
         <!-- 数据表进行生成操作 tableName:表名; domainObjectName:对应的DO -->
-        <table tableName="honour_project"
+        <table tableName="science_project_units"
                 enableSelectByExample="false"
                 enableDeleteByExample="false"
                 enableUpdateByExample="false">
             <generatedKey column="id" sqlStatement="JDBC"/>
-                        <columnOverride column="report_condition" jdbcType="VARCHAR" javaType="java.lang.String"/>
-                        <columnOverride column="project_desc" jdbcType="VARCHAR" javaType="java.lang.String"/>
-                        <columnOverride column="project_appendix" jdbcType="VARCHAR" javaType="java.lang.String"/>
-                        <columnOverride column="report_time" javaType="java.util.Date"/>
-            <!--            <columnOverride column="project_start_date" javaType="java.util.Date"/>-->
-            <!--            <columnOverride column="project_end_date" javaType="java.util.Date"/>-->
+            <!--                        <columnOverride column="report_condition" jdbcType="VARCHAR" javaType="java.lang.String"/>-->
+            <!--                        <columnOverride column="project_desc" jdbcType="VARCHAR" javaType="java.lang.String"/>-->
+            <!--                        <columnOverride column="project_appendix" jdbcType="VARCHAR" javaType="java.lang.String"/>-->
+            <!--                        <columnOverride column="report_time" javaType="java.util.Date"/>-->
+            <!--                        <columnOverride column="project_start_date" javaType="java.util.Date"/>-->
+            <!--                        <columnOverride column="project_end_date" javaType="java.util.Date"/>-->
             <columnOverride column="create_date" javaType="java.util.Date"/>
         </table>
     </context>

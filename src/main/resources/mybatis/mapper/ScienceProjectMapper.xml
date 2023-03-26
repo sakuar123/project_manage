@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sakura.project_manage.mapper.generator.ScienceProjectGeneratorMapper">
+    <resultMap id="BaseResultMap" type="com.sakura.project_manage.entity.ScienceProject">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="project_publish_id" jdbcType="INTEGER" property="projectPublishId"/>
+        <result column="project_status" jdbcType="INTEGER" property="projectStatus"/>
+        <result column="project_name" jdbcType="VARCHAR" property="projectName"/>
+        <result column="project_course" jdbcType="VARCHAR" property="projectCourse"/>
+        <result column="project_specialized" jdbcType="VARCHAR" property="projectSpecialized"/>
+        <result column="budget_funds" jdbcType="DECIMAL" property="budgetFunds"/>
+        <result column="project_start_date" jdbcType="TIMESTAMP" property="projectStartDate"/>
+        <result column="project_end_date" jdbcType="TIMESTAMP" property="projectEndDate"/>
+        <result column="expected_results" jdbcType="VARCHAR" property="expectedResults"/>
+        <result column="host_unit" jdbcType="VARCHAR" property="hostUnit"/>
+        <result column="unit_type" jdbcType="VARCHAR" property="unitType"/>
+        <result column="person_charge" jdbcType="VARCHAR" property="personCharge"/>
+        <result column="person_charge_phone" jdbcType="VARCHAR" property="personChargePhone"/>
+        <result column="person_charge_identity" jdbcType="VARCHAR" property="personChargeIdentity"/>
+        <result column="person_charge_work" jdbcType="VARCHAR" property="personChargeWork"/>
+        <result column="create_user" jdbcType="INTEGER" property="createUser"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                            separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    id, project_publish_id, project_status, project_name, project_course, project_specialized, 
+    budget_funds, project_start_date, project_end_date, expected_results, host_unit, 
+    unit_type, person_charge, person_charge_phone, person_charge_identity, person_charge_work, 
+    create_user, create_date
+  </sql>
+    <select id="countByExample" parameterType="com.sakura.project_manage.entity.example.ScienceProjectExample"
+            resultType="java.lang.Long">
+        select count(*) from science_project
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <select id="search" parameterType="pd" resultType="pd">
+        SELECT
+        id,
+        project_status as `projectStatus`,
+        project_name as `projectName`,
+        host_unit as `hostUnit`,
+        unit_type as `unitType`,
+        DATE_FORMAT(create_date, '%Y-%m-%d' ) AS `reportTime`,
+        person_charge as `personCharge`
+        FROM science_project
+        <where>
+            1=1
+            <if test=" projectName != null and projectName != ''">
+                and project_name like concat('%',#{projectName},'%')
+            </if>
+        </where>
+    </select>
+</mapper>
