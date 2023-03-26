@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.sakura.project_manage.common.enums.EnumProjectLevel;
 import com.sakura.project_manage.common.utils.CommonsUtil;
 import com.sakura.project_manage.common.utils.DateUtils;
 import com.sakura.project_manage.common.utils.JwtUtil;
@@ -18,10 +19,12 @@ import com.sakura.project_manage.common.utils.MD5Util;
 import com.sakura.project_manage.entity.AuthorityDetail;
 import com.sakura.project_manage.entity.FundProject;
 import com.sakura.project_manage.entity.FundProjectDetail;
+import com.sakura.project_manage.entity.HonourProject;
 import com.sakura.project_manage.entity.UserDetail;
 import com.sakura.project_manage.mapper.generator.AuthorityDetailGeneratorMapper;
 import com.sakura.project_manage.mapper.generator.FundProjectDetailGeneratorMapper;
 import com.sakura.project_manage.mapper.generator.FundProjectGeneratorMapper;
+import com.sakura.project_manage.mapper.generator.HonourProjectGeneratorMapper;
 import com.sakura.project_manage.mapper.generator.UserDetailGeneratorMapper;
 
 import io.jsonwebtoken.Claims;
@@ -151,8 +154,32 @@ class ProjectManageApplicationTests {
     @Test
     void t5() {
         FundProject fundProject = fundProjectGeneratorMapper.selectOne(FundProject.builder().id(1).build());
-        FundProjectDetail fundProjectDetail  = fundProjectDetailGeneratorMapper.selectOne(FundProjectDetail.builder().projectFundId(1).build());
+        FundProjectDetail fundProjectDetail = fundProjectDetailGeneratorMapper
+                .selectOne(FundProjectDetail.builder().projectFundId(1).build());
         System.out.println(JSON.toJSONString(fundProject));
         System.out.println(JSON.toJSONString(fundProjectDetail));
+    }
+
+    @Autowired
+    private HonourProjectGeneratorMapper honourProjectGeneratorMapper;
+
+    @Test
+    void t6() {
+//        honourProjectGeneratorMapper.insertSelective(HonourProject
+//                .builder()
+//                .departmentId(1)
+//                .honourName("某某某荣誉")
+//                .projectAppendix("")
+//                .projectBody("某某某公司")
+//                .projectDesc("")
+//                .projectLevel(EnumProjectLevel.CITY.getCode())
+//                .projectName("某某某项目")
+//                .projectPublishId(1)
+//                .reportTime(DateUtils.parseDate("2023-03-25"))
+//                .reportCondition("条件1,条件2,条件3")
+//                .sectionId(1)
+//                .build());
+        System.out.println(
+                JSON.toJSONString(honourProjectGeneratorMapper.selectOne(HonourProject.builder().id(1).build())));
     }
 }

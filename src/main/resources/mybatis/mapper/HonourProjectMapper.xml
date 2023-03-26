@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sakura.project_manage.mapper.generator.HonourProjectGeneratorMapper">
+    <resultMap id="BaseResultMap" type="com.sakura.project_manage.entity.HonourProject">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="project_publish_id" jdbcType="INTEGER" property="projectPublishId"/>
+        <result column="project_status" jdbcType="INTEGER" property="projectStatus"/>
+        <result column="honour_name" jdbcType="VARCHAR" property="honourName"/>
+        <result column="project_name" jdbcType="VARCHAR" property="projectName"/>
+        <result column="project_body" jdbcType="VARCHAR" property="projectBody"/>
+        <result column="report_time" jdbcType="TIMESTAMP" property="reportTime"/>
+        <result column="report_condition" jdbcType="VARCHAR" property="reportCondition"/>
+        <result column="department_id" jdbcType="INTEGER" property="departmentId"/>
+        <result column="project_level" jdbcType="INTEGER" property="projectLevel"/>
+        <result column="section_id" jdbcType="INTEGER" property="sectionId"/>
+        <result column="project_desc" jdbcType="VARCHAR" property="projectDesc"/>
+        <result column="project_appendix" jdbcType="VARCHAR" property="projectAppendix"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                            separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    id, project_publish_id, project_status, honour_name, project_name, project_body, 
+    report_time, report_condition, department_id, project_level, section_id, project_desc, 
+    project_appendix, create_date
+  </sql>
+    <select id="countByExample" parameterType="com.sakura.project_manage.entity.example.HonourProjectExample"
+            resultType="java.lang.Long">
+        select count(*) from honour_project
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <select id="get" parameterType="int" resultType="pd">
+        SELECT
+        h.id as `id`,
+        h.honour_name as `honourName`,
+        h.project_name as `projectName`,
+        h.project_body as `projectBody`,
+        DATE_FORMAT(h.report_time,'%Y-%m-%d') as `reportTime`,
+        h.project_level as `projectLevel`,
+        (SELECT s.section_name FROM section_detail s WHERE s.id = h.section_id) as `sectionName`,
+        (SELECT d.department_name FROM department_detail d WHERE d.id = h.department_id) as `departmentName`,
+        h.report_condition as `reportCondition`,
+        h.project_appendix as `projectAppendix`
+        FROM honour_project h
+        <where>
+            h.id = #{id}
+        </where>
+    </select>
+    <select id="search" parameterType="pd" resultType="pd">
+        SELECT
+        h.id AS `id`,
+        DATE_FORMAT( h.report_time, '%Y-%m-%d' ) AS `reportTime`,
+        h.project_status AS `projectStatus`,
+        h.honour_name AS `honourName`,
+        h.project_body AS `projectBody`,
+        h.project_level AS `projectLevel`,
+        s.section_name AS `sectionName`,
+        de.department_name AS `departmentName`,
+        h.project_appendix AS `projectAppendix`,
+        h.project_desc AS `projectDesc`
+        FROM
+        honour_project h
+        JOIN department_detail de ON de.id = h.department_id
+        JOIN section_detail s ON s.id = h.section_id
+        <where>
+            1=1
+            <if test="honourName != '' and honourName != null ">
+                and h.honour_name like concat('%',#{honourName},'%')
+            </if>
+            <if test=" projectStatus != null and projectStatus != '' ">
+                and h.project_status = #{projectStatus}
+            </if>
+            <if test=" departmentId != null and departmentId != '' ">
+                and de.department_id = #{departmentId}
+            </if>
+            <if test=" sectionId != null and sectionId != '' ">
+                and s.section_id = #{projectStatus}
+            </if>
+            <if test=" projectLevel != null and projectLevel != '' ">
+                and h.project_level = #{projectLevel}
+            </if>
+        </where>
+    </select>
+</mapper>
